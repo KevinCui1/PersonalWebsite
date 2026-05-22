@@ -13,13 +13,19 @@ function SiteContent() {
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-base)' }}>
+      {/* Background layer */}
+      <div className="bg-orb bg-orb-1" />
+      <div className="bg-orb bg-orb-2" />
+      <div className="bg-orb bg-orb-3" />
+      <div className="bg-noise" />
+
       <LeftSidebar activeSection={activeSection} />
       <RightSidebar />
       <MobileNav />
 
       <main
         className="lg:ml-[200px] lg:mr-[80px]"
-        style={{ paddingTop: '0' }}
+        style={{ paddingTop: '0', position: 'relative', zIndex: 1 }}
       >
         {/* Mobile top padding to clear navbar */}
         <div className="lg:hidden" style={{ height: '60px' }} />
