@@ -1,0 +1,357 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design Tokens ─────────────────────────────── */
+:root {
+  --bg-base:        #0D1117;
+  --bg-surface:     #131B26;
+  --bg-border:      #1F2D3D;
+  --accent:         #4FC3F7;
+  --accent-hover:   #38BDF8;
+  --text-primary:   #E8EEF7;
+  --text-secondary: #A8B8CC;
+  --text-muted:     #6B7F96;
+}
+
+/* ─── Base ───────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 400;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root { width: 100%; }
+
+/* ─── Page Loader ────────────────────────────────── */
+@keyframes loaderIn {
+  from { opacity: 0; letter-spacing: 0.35em; transform: translateY(8px); }
+  to   { opacity: 1; letter-spacing: 0.08em;  transform: translateY(0); }
+}
+
+@keyframes loaderOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+.page-loader {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.page-loader__initials {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  animation: loaderIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.page-loader--exit {
+  animation: loaderOut 0.45s ease forwards;
+}
+
+/* ─── Keyframes ──────────────────────────────────── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Hero Animations ────────────────────────────── */
+.hero-animate {
+  opacity: 0;
+  animation: fadeSlideUp 0.7s ease forwards;
+}
+
+.anim-delay-0   { animation-delay: 0ms; }
+.anim-delay-100 { animation-delay: 100ms; }
+.anim-delay-200 { animation-delay: 200ms; }
+.anim-delay-300 { animation-delay: 300ms; }
+.anim-delay-400 { animation-delay: 400ms; }
+.anim-delay-500 { animation-delay: 500ms; }
+.anim-delay-600 { animation-delay: 600ms; }
+.anim-delay-700 { animation-delay: 700ms; }
+
+/* ─── Scroll-triggered Reveal ────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Sidebar Nav Links ──────────────────────────── */
+.sidebar-link {
+  position: relative;
+  padding: 0.2rem 0;
+  transition: color 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+}
+
+.sidebar-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.sidebar-link:hover,
+.sidebar-link.active {
+  color: var(--accent);
+}
+
+.sidebar-link:hover::after,
+.sidebar-link.active::after {
+  width: 100%;
+}
+
+/* ─── Section Heading ────────────────────────────── */
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.section-heading__num {
+  font-family: 'Courier New', Courier, monospace;
+  color: var(--accent);
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  font-weight: 400;
+}
+
+.section-heading__title {
+  font-family: 'Times New Roman', Times, serif;
+  color: var(--text-primary);
+  font-size: 1.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+  margin: 0;
+}
+
+.section-heading__line {
+  flex: 1;
+  height: 1px;
+  background: var(--bg-border);
+  min-width: 40px;
+}
+
+/* ─── Hero Glow ──────────────────────────────────── */
+.hero-glow {
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 40%,
+    rgba(30, 80, 120, 0.25) 0%,
+    rgba(79, 195, 247, 0.04) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* ─── Photo Offset Effect ────────────────────────── */
+.photo-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 250px;
+  height: 250px;
+  flex-shrink: 0;
+}
+
+.photo-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
+  object-position: center 25%;
+  transition: transform 0.35s ease;
+  filter: grayscale(20%);
+}
+
+.photo-wrapper::after {
+  content: '';
+  position: absolute;
+  width: calc(100% + 6px);
+  height: calc(100% + 6px);
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  top: 14px;
+  left: 14px;
+  transition: top 0.35s ease, left 0.35s ease;
+  pointer-events: none;
+}
+
+.photo-wrapper:hover::after {
+  top: 7px;
+  left: 7px;
+}
+
+.photo-wrapper:hover img {
+  transform: translate(-5px, -5px);
+}
+
+/* ─── Hero Photo ─────────────────────────────────── */
+.hero-photo-wrapper {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.hero-photo-wrapper img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  filter: grayscale(20%) brightness(0.92);
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.hero-photo-wrapper::after {
+  content: '';
+  position: absolute;
+  border-radius: 10px;
+  border: 2px solid var(--accent);
+  top: 14px;
+  left: 14px;
+  right: -14px;
+  bottom: -14px;
+  z-index: 0;
+  transition: top 0.35s ease, left 0.35s ease, right 0.35s ease, bottom 0.35s ease;
+}
+
+.hero-photo-wrapper:hover img {
+  transform: translate(-6px, -6px);
+  filter: grayscale(0%) brightness(1);
+}
+
+.hero-photo-wrapper:hover::after {
+  top: 8px;
+  left: 8px;
+  right: -8px;
+  bottom: -8px;
+}
+
+/* ─── Featured Project Image ─────────────────────── */
+.featured-img-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.featured-img-placeholder {
+  position: relative;
+  z-index: 1;
+  background: var(--bg-surface);
+  border: 1px solid var(--bg-border);
+  border-radius: 8px;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  overflow: hidden;
+  filter: grayscale(20%) brightness(0.92);
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.featured-img-wrapper::after {
+  content: '';
+  position: absolute;
+  border-radius: 8px;
+  border: 2px solid var(--accent);
+  top: 14px;
+  left: 14px;
+  right: -14px;
+  bottom: -14px;
+  z-index: 0;
+  transition: top 0.35s ease, left 0.35s ease, right 0.35s ease, bottom 0.35s ease;
+}
+
+.featured-img-wrapper:hover .featured-img-placeholder {
+  transform: translate(-6px, -6px);
+  filter: grayscale(0%) brightness(1);
+}
+
+.featured-img-wrapper:hover::after {
+  top: 8px;
+  left: 8px;
+  right: -8px;
+  bottom: -8px;
+}
+
+/* ─── Card Hover Effect ──────────────────────────── */
+.project-card,
+.award-card {
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.project-card:hover,
+.award-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent) !important;
+}
+
+/* ─── Outlined CTA Button ────────────────────────── */
+.btn-outline {
+  display: inline-block;
+  padding: 0.75rem 1.75rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  background: transparent;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background-color: rgba(79, 195, 247, 0.1);
+}
+
+/* ─── Mobile Menu ────────────────────────────────── */
+@keyframes menuSlideIn {
+  from { opacity: 0; transform: translateX(100%); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.mobile-menu {
+  animation: menuSlideIn 0.3s ease forwards;
+}
+
+/* ─── Stagger Delays for Cards ───────────────────── */
+.stagger-1 { transition-delay: 100ms; }
+.stagger-2 { transition-delay: 200ms; }
+.stagger-3 { transition-delay: 300ms; }
+.stagger-4 { transition-delay: 400ms; }
