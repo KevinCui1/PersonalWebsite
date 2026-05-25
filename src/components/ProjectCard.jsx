@@ -24,7 +24,7 @@ function FolderIcon() {
   )
 }
 
-export default function ProjectCard({ title, org, description, tags = [], delay = 0, github, icon }) {
+export default function ProjectCard({ title, org, description, tags = [], delay = 0, github, externalLink, icon }) {
   return (
     <div
       className="reveal project-card flex flex-col rounded-lg p-6 cursor-default"
@@ -43,9 +43,11 @@ export default function ProjectCard({ title, org, description, tags = [], delay 
               <GitHubIcon />
             </a>
           )}
-          <a href="#" className="text-text-muted hover:text-accent transition-colors duration-200" aria-label="External link">
-            <ExternalLinkIcon />
-          </a>
+          {externalLink && (
+            <a href={externalLink} target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-accent transition-colors duration-200" aria-label="External link">
+              <ExternalLinkIcon />
+            </a>
+          )}
         </div>
       </div>
 
