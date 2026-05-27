@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 export default function PageLoader({ onComplete }) {
   const [exiting, setExiting] = useState(false)
+  const [done, setDone] = useState(false)
   const [visible] = useState(() => !sessionStorage.getItem('kc-loaded'))
 
   useEffect(() => {
@@ -14,6 +15,7 @@ export default function PageLoader({ onComplete }) {
     const doneTimer = setTimeout(() => {
       sessionStorage.setItem('kc-loaded', '1')
       onComplete()
+      setDone(true)
     }, 1450)
 
     return () => {
@@ -22,7 +24,7 @@ export default function PageLoader({ onComplete }) {
     }
   }, [])
 
-  if (!visible) return null
+  if (!visible || done) return null
 
   return (
     <div className={`page-loader${exiting ? ' page-loader--exit' : ''}`}>
